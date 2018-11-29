@@ -191,11 +191,9 @@ if defined?(Rails) && defined?(Rails::VERSION) && defined?(Rails::VERSION::MAJOR
         # Attempt to start right away, this will work best for preloading apps, Unicorn & Puma & similar
         ScoutApm::Agent.instance.install
 
-        # Install the middleware every time in development mode.
+        # Install the middleware every time
         # The middleware is a noop if dev_trace is not enabled in config
-        if Rails.env.development?
-          app.middleware.use ScoutApm::Instant::Middleware
-        end
+        app.middleware.use ScoutApm::Instant::Middleware
       end
 
       rake_tasks do
